@@ -1,5 +1,6 @@
 export interface BadmintonRecord {
   no: number;
+  pemain: string;
   totalBola: number;
   hargaSebenarnya: number;
   hargaDibayar: number;

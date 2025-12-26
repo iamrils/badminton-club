@@ -317,6 +317,9 @@ export default function Home() {
                       No
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white">
+                      Pemain
+                    </th>
+                    <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white">
                       Total Bola
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white">
@@ -336,7 +339,7 @@ export default function Home() {
                 <tbody className="divide-y divide-gray-100">
                   {currentRecords.length === 0 ? (
                     <tr>
-                      <td colSpan={6} className="px-6 py-12 text-center">
+                      <td colSpan={7} className="px-6 py-12 text-center">
                         <div className="flex flex-col items-center justify-center">
                           <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
                             <svg
@@ -373,6 +376,11 @@ export default function Home() {
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 text-emerald-700 font-bold text-sm">
                             {record.no}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <span className="text-sm font-semibold text-gray-800">
+                            👤 {record.pemain}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">

@@ -30,6 +30,7 @@ The application reads from a public Google Sheet with two sheets:
 ### "List" Sheet (Transaction Records)
 
 - **No**: Record number
+- **Pemain**: Player name
 - **Total Bola**: Number of shuttlecocks
 - **Harga Sebenarnya**: Actual price (IDR)
 - **Harga Dibayar**: Amount paid (IDR)
@@ -39,7 +40,7 @@ The application reads from a public Google Sheet with two sheets:
 ### "Total" Sheet (Summary)
 
 - **A2**: "Initial Total" | **B2**: 200000
-- **A3**: "Total" | **B3**: `=B2+SUM(List!E2:E)` (formula)
+- **A3**: "Total" | **B3**: `=B2+SUM(List!F2:F)` (formula)
 
 **Sheet URL**: https://docs.google.com/spreadsheets/d/1YaJcIfl8r0XLxK8dm8nkcucgGNJnwG7Ra7i-U04q_TA/edit
 

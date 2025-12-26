@@ -31,9 +31,9 @@ The application reads data from a public Google Sheet. You need to:
 2. **Structure for "List" sheet:**
 
    ```
-   | No | Total Bola | Harga Sebenarnya | Harga Dibayar | Selisih | Tanggal |
-   |----|------------|------------------|---------------|---------|---------|
-   | 1  | 10         | Rp25.000        | Rp30.000     | Rp5.000 | 1/15/2025 |
+   | No | Pemain | Total Bola | Harga Sebenarnya | Harga Dibayar | Selisih | Tanggal |
+   |----|--------|------------|------------------|---------------|---------|---------|
+   | 1  | Andi   | 10         | Rp25.000        | Rp30.000     | Rp5.000 | 1/15/2025 |
    ```
 
 3. **Structure for "Total" sheet:**
@@ -42,7 +42,7 @@ The application reads data from a public Google Sheet. You need to:
    | Label         | Value                  |
    |---------------|------------------------|
    | Initial Total | 200000                 |
-   | Total         | =B2+SUM(List!E2:E)    |
+   | Total         | =B2+SUM(List!F2:F)    |
    ```
 
 4. **Make the sheet public:**

@@ -87,11 +87,12 @@ export async function getRecords() {
 
       return {
         no: parseInt(getValue(cells[0]) || "0"),
-        totalBola: parseInt(getValue(cells[1]) || "0"),
-        hargaSebenarnya: parseCurrency(getValue(cells[2])),
-        hargaDibayar: parseCurrency(getValue(cells[3])),
-        selisih: parseCurrency(getValue(cells[4])),
-        tanggal: getValue(cells[5]) || "",
+        pemain: getValue(cells[1]) || "",
+        totalBola: parseInt(getValue(cells[2]) || "0"),
+        hargaSebenarnya: parseCurrency(getValue(cells[3])),
+        hargaDibayar: parseCurrency(getValue(cells[4])),
+        selisih: parseCurrency(getValue(cells[5])),
+        tanggal: getValue(cells[6]) || "",
       };
     });
   } catch (error) {
