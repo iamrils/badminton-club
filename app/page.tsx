@@ -287,18 +287,6 @@ export default function Home() {
                 />
               </div>
             </div>
-            {(startDate || endDate) && (
-              <div className="mt-6 p-4 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl border border-emerald-200">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-semibold text-gray-700">
-                    Total Periode Terpilih:
-                  </span>
-                  <span className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-                    Rp {getFilteredTotal().toLocaleString("id-ID")}
-                  </span>
-                </div>
-              </div>
-            )}
           </CardContent>
         </Card>
 

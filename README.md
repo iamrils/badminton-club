@@ -1,28 +1,49 @@
-# Badminton Report Application
+# Badminton Cash Tracking & Scoreboard App
 
-A Next.js application for tracking badminton shuttlecock usage and costs integrated with Google Sheets.
+A Next.js application for tracking badminton cash flow and keeping score during games, integrated with public Google Sheets.
 
 ## Features
 
-- 📊 Dashboard with total calculations
-- 📅 Date range filtering
-- ➕ Add new records directly to Google Sheets
-- 🔄 Real-time sync with Google Sheets
-- 📱 Responsive design with Tailwind CSS
+### 💰 Cash Tracking Dashboard
+
+- 📊 View all transaction records from Google Sheets
+- 📅 Filter by date range (start and end date)
+- 💵 **Total Kas Keseluruhan** - Overall total from Total sheet
+- 📆 **Total Kas Periode** - Period total (shown only when date filter is active)
+- 📄 Pagination with 100 items per page
+- 🔄 Real-time data sync from public Google Sheet
+- 📱 Responsive design with Tailwind CSS v4
+
+### 🏸 Badminton Scoreboard
+
+- ⚡ Real-time score tracking for Tim A and Tim B
+- 🏆 Automatic winner detection (first to 21 with 2-point lead)
+- 📊 Score history with undo functionality
+- 💾 LocalStorage persistence (scores saved on refresh)
+- 🔄 Reset with confirmation dialog
+- 🎯 Follows official badminton scoring rules
 
 ## Google Sheet Structure
 
-The application uses a Google Sheet with the following columns:
+The application reads from a public Google Sheet with two sheets:
 
-- **No**: Auto-incremented record number
-- **Player**: Name of the player
-- **How many shuttlecock**: Number of shuttlecocks used
-- **Price**: Cost in IDR
-- **Date**: Date of the record
+### "List" Sheet (Transaction Records)
+
+- **No**: Record number
+- **Total Bola**: Number of shuttlecocks
+- **Harga Sebenarnya**: Actual price (IDR)
+- **Harga Dibayar**: Amount paid (IDR)
+- **Selisih**: Difference (calculated)
+- **Tanggal**: Date (M/D/YYYY format)
+
+### "Total" Sheet (Summary)
+
+- **A2**: "Initial Total" | **B2**: 200000
+- **A3**: "Total" | **B3**: `=B2+SUM(List!E2:E)` (formula)
 
 **Sheet URL**: https://docs.google.com/spreadsheets/d/1YaJcIfl8r0XLxK8dm8nkcucgGNJnwG7Ra7i-U04q_TA/edit
 
-## Setup Instructions
+## Quick Setup
 
 ### 1. Install Dependencies
 
@@ -30,69 +51,60 @@ The application uses a Google Sheet with the following columns:
 npm install
 ```
 
-### 2. Configure Google Sheets Access
+### 2. Configure Your Google Sheet
 
-#### Option A: Public Sheet (Easiest - No Authentication)
+This app uses **public Google Sheets** (read-only). No API key or authentication required!
 
-1. Open the Google Sheet
-2. Click "Share" button in the top right
-3. Change access to "Anyone with the link" can **edit**
-4. No need to set up environment variables
-5. Click "Initialize Sheet" button in the app to create headers
+1. **Create or use your Google Sheet** with the structure above
+2. **Make it public**:
+   - Click "Share" → "Anyone with the link can **view**"
+3. **Copy the spreadsheet ID** from the URL:
+   - Format: `https://docs.google.com/spreadsheets/d/`**SPREADSHEET_ID**`/edit`
+4. **Update the ID** in `lib/sheets.ts`:
+   ```typescript
+   const SPREADSHEET_ID = "YOUR_SPREADSHEET_ID_HERE";
+   ```
 
-#### Option B: Private Sheet with Service Account (More Secure)
-
-1. Go to [Google Cloud Console](https://console.cloud.google.com)
-2. Create a new project or select existing one
-3. Enable the Google Sheets API
-4. Create a Service Account:
-   - Go to "IAM & Admin" > "Service Accounts"
-   - Click "Create Service Account"
-   - Give it a name and click "Create"
-   - Skip granting access and click "Done"
-5. Generate a JSON key:
-   - Click on the service account email
-   - Go to "Keys" tab
-   - Click "Add Key" > "Create new key"
-   - Choose JSON format
-   - Download the file
-6. Share the Google Sheet:
-   - Open your Google Sheet
-   - Click "Share"
-   - Add the service account email (found in the JSON file)
-   - Give it "Editor" permission
-7. Configure environment:
-   - Copy `.env.example` to `.env.local`
-   - Copy the entire content of the JSON key file
-   - Paste it as a single line in `GOOGLE_SERVICE_ACCOUNT_KEY`
+### 3. Run the Application
 
 ```bash
-cp .env.example .env.local
-# Edit .env.local and add your service account key
-```
-
-### 3. Initialize the Sheet
-
-1. Start the development server:
-
-```bash
+# Development
 npm run dev
+
+# Production build
+npm run build
+npm start
 ```
 
-2. Open http://localhost:3000
-3. Click the "Initialize Sheet" button to create the column headers
+Open [http://localhost:3000](http://localhost:3000) to view the app.
 
-### 4. Start Using the App
+## Usage
 
-- **Add Records**: Click "Add Record" button to add new entries
-- **View Dashboard**: See total from last date and filtered totals
-- **Filter by Date**: Use the date range filter to view specific periods
-- **All changes sync to Google Sheets**: Data is stored directly in your Google Sheet
+### Main Dashboard (`/`)
+
+1. **View Records**: All transactions from Google Sheet displayed in a table
+2. **Date Filtering**:
+   - Select start date and/or end date
+   - Clear start date automatically clears end date
+   - Total Kas Periode appears only when filter is active
+3. **Pagination**: Navigate through records (100 per page)
+4. **Navigation**: Click "Skor Badminton" to go to scoreboard
+
+### Scoreboard (`/skor`)
+
+1. **Score Points**: Click on Tim A or Tim B card to add points
+2. **Undo**: Revert last action (disabled when no history)
+3. **Reset**: Clear all scores with confirmation dialog (disabled when both scores are 0)
+4. **Auto Win**: Game ends when a team reaches 21+ with 2-point lead or 30 points
+5. **Persistence**: Scores automatically saved to localStorage
 
 ## Development
 
 ```bash
-# Run development server
+# Install dependencies
+npm install
+
+# Run development server (with Turbopack)
 npm run dev
 
 # Build for production
@@ -100,6 +112,9 @@ npm run build
 
 # Start production server
 npm start
+
+# Lint code
+npm run lint
 ```
 
 ## Project Structure
@@ -108,69 +123,110 @@ npm start
 badminton/
 ├── app/
 │   ├── api/
-│   │   ├── init/          # Initialize sheet headers
-│   │   └── records/       # CRUD operations for records
-│   ├── globals.css        # Global styles
-│   ├── layout.tsx         # Root layout
-│   └── page.tsx           # Main dashboard page
+│   │   ├── records/        # Fetch records from List sheet
+│   │   └── total/          # Fetch total from Total sheet
+│   ├── skor/
+│   │   └── page.tsx        # Scoreboard page
+│   ├── globals.css         # Global styles + Tailwind directives
+│   ├── layout.tsx          # Root layout with metadata
+│   └── page.tsx            # Main dashboard page
+├── components/
+│   └── ui/
+│       ├── button.tsx      # Button component (Radix UI style)
+│       └── card.tsx        # Card components
 ├── lib/
-│   └── sheets.ts          # Google Sheets integration
+│   ├── sheets.ts           # Google Sheets integration (public API)
+│   └── utils.ts            # Utility functions (cn)
 ├── types/
-│   └── index.ts           # TypeScript types
-├── .env.example           # Environment variables template
-├── next.config.ts         # Next.js configuration
-├── tailwind.config.ts     # Tailwind CSS configuration
-└── package.json           # Dependencies
+│   └── index.ts            # TypeScript type definitions
+├── documentation/
+│   └── instruction.md      # Original project instructions
+├── .gitignore              # Git ignore patterns
+├── SETUP.md                # Detailed setup guide
+├── README.md               # This file
+├── next.config.ts          # Next.js configuration
+├── tailwind.config.ts      # Tailwind CSS v4 configuration
+├── tsconfig.json           # TypeScript configuration
+└── package.json            # Dependencies and scripts
 ```
 
 ## Technologies Used
 
-- **Next.js 15**: React framework with App Router
-- **TypeScript**: Type-safe development
-- **Tailwind CSS**: Utility-first styling
-- **Google Sheets API**: Data storage and sync
-- **googleapis**: Google API client library
+- **Next.js 16.0.10** - React framework with App Router and Turbopack
+- **React 19.2.0** - UI library with latest features
+- **TypeScript 5** - Type-safe development
+- **Tailwind CSS v4** - Utility-first styling with @tailwindcss/postcss
+- **Google Visualization API** - Fetch data from public sheets without auth
+- **React DatePicker 9.1.0** - Date range selection
+- **Radix UI** - Accessible component primitives
+- **localStorage** - Client-side score persistence
 
-## Features in Detail
+## Key Features Explained
 
-### Dashboard
+### Smart Currency Parsing
 
-- Shows total money from the last date (most recent date in records)
-- Shows total money from filtered date range
-- Displays all records in a table format
+Handles multiple Indonesian currency formats:
 
-### Date Filtering
+- `Rp25.000` → 25000 (dot as thousand separator)
+- `Rp25,000` → 25000 (comma as thousand separator)
+- `Rp1.234,56` → 1234.56 (European format)
+- Automatically detects separator based on position and count
 
-- Filter records by date range (from/to)
-- Clear filters button to reset
-- Real-time filtering without page reload
+### Conditional Display
 
-### Add Records
+- **Total Kas Keseluruhan**: Always visible, fetches from `Total!B3`
+- **Total Kas Periode**: Only shows when date filter is applied
+- Cards appear/disappear based on filter state
 
-- Form to add new records
-- Auto-increment record number
-- Validates all required fields
-- Immediately syncs to Google Sheets
+### Date Handling
+
+- Parses Google Sheets date format: `Date(2024,11,1)`
+- Converts to `M/D/YYYY` for filtering
+- Clears end date when start date is cleared
+- Sets proper time bounds for accurate filtering
+
+### Scoreboard Logic
+
+- Win conditions:
+  - First to 21 points with minimum 2-point lead
+  - Maximum score is 30 (at 29-29, next point wins)
+- History tracking for undo functionality
+- localStorage auto-save on every state change
 
 ## Troubleshooting
 
-### Sheet not found error
+### Data not loading
 
-- Verify the spreadsheet ID in `lib/sheets.ts` matches your sheet
-- Ensure the sheet has proper sharing permissions
+- Verify spreadsheet ID in `lib/sheets.ts` is correct
+- Ensure sheet is public ("Anyone with the link can view")
+- Check sheet names are exactly "List" and "Total"
+- Open browser console for detailed error messages
+- Verify internet connection
 
-### Authentication errors
+### Date filter not working
 
-- Check your service account JSON key is correctly formatted in `.env.local`
-- Verify the service account email has edit access to the sheet
-- Make sure Google Sheets API is enabled in your Google Cloud project
+- Ensure dates in sheet are valid format
+- Check Google Sheets date format is being parsed correctly
+- Verify tanggal column contains proper date values
 
-### Data not appearing
+### Currency showing wrong values
 
-- Click "Initialize Sheet" to create headers
-- Check browser console for errors
-- Verify your internet connection
-- Ensure the sheet name in `lib/sheets.ts` matches your actual sheet name (default: "List")
+- Check currency format in Google Sheet
+- Supported formats: `Rp25.000`, `Rp25,000`, `Rp1.234,56`
+- Avoid mixing formats in same column
+
+### Scoreboard scores lost
+
+- Check if localStorage is enabled in browser
+- Try different browser if issue persists
+- Check browser console for localStorage errors
+- Scores are device-specific (not synced across devices)
+
+### Build errors
+
+- Clear Next.js cache: `rm -rf .next`
+- Reinstall dependencies: `rm -rf node_modules && npm install`
+- Check TypeScript errors: `npm run lint`
 
 ## License
 
