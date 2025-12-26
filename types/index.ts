@@ -1,0 +1,13 @@
+export interface BadmintonRecord {
+  no: number;
+  totalBola: number;
+  hargaSebenarnya: number;
+  hargaDibayar: number;
+  selisih: number;
+  tanggal: string;
+}
+
+export interface DateFilter {
+  from: string;
+  to: string;
+}
