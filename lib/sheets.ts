@@ -18,7 +18,7 @@ export async function getRecords() {
   try {
     const rows = await fetchPublicSheetData(SHEET_NAME);
 
-    return rows.slice(1).map((row: any) => {
+    return rows.slice(0).map((row: any) => {
       const cells = row.c || [];
 
       // Helper function to parse currency values
