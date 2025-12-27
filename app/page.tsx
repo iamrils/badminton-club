@@ -323,10 +323,10 @@ export default function Home() {
                       Total Bola
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white">
-                      Harga Sebenarnya
+                      Jumlah
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white">
-                      Harga Dibayar
+                      Dibayar
                     </th>
                     <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-white">
                       Selisih
