@@ -125,7 +125,7 @@ export default function Score() {
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50">
       {/* Header */}
       <div className="bg-white/80 backdrop-blur-sm shadow-lg border-b border-emerald-100/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:py-8 py-4">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <div className="text-center sm:text-left">
               <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent mb-2">
@@ -157,7 +157,7 @@ export default function Score() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:py-8 py-4">
         {/* Winner Banner */}
         {gameOver && winner && (
           <div className="mb-8">
@@ -175,7 +175,7 @@ export default function Score() {
         )}
 
         {/* Scoreboard */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-2 lg:grid-cols-2 gap-6">
           {/* Tim A */}
           <button
             onClick={handleScoreA}
@@ -183,15 +183,15 @@ export default function Score() {
             className="group relative overflow-hidden rounded-3xl transition-all duration-300 hover:scale-[1.02] disabled:hover:scale-100 disabled:opacity-60"
           >
             <Card className="border-none shadow-2xl bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 h-full">
-              <CardContent className="p-12 text-center relative z-10">
+              <CardContent className="p-4 lg:p-12 text-center relative z-10">
                 <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-all duration-300" />
 
                 <div className="relative">
                   <div className="mb-6">
-                    <div className="w-24 h-24 mx-auto bg-white/20 rounded-full flex items-center justify-center mb-4 backdrop-blur-sm group-hover:scale-110 transition-transform">
-                      <span className="text-6xl">🏸</span>
+                    <div className="w-18 h-18 lg:w-24 lg:h-24 mx-auto bg-white/20 rounded-full flex items-center justify-center mb-4 backdrop-blur-sm group-hover:scale-110 transition-transform">
+                      <span className="text-4xl lg:text-6xl">🏸</span>
                     </div>
-                    <h3 className="text-4xl font-bold text-white mb-2">
+                    <h3 className="text-2xl lg:text-4xl font-bold text-white mb-2">
                       Tim A
                     </h3>
                     <p className="text-blue-200 text-sm font-medium">
@@ -200,7 +200,7 @@ export default function Score() {
                   </div>
 
                   <div className="mb-6">
-                    <div className="text-[140px] leading-none font-black text-white drop-shadow-2xl">
+                    <div className="text-[100px] lg:text-[140px] leading-none font-black text-white drop-shadow-2xl">
                       {scoreA}
                     </div>
                   </div>
@@ -208,7 +208,7 @@ export default function Score() {
                   {!gameOver && (
                     <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/20 rounded-full backdrop-blur-sm">
                       <svg
-                        className="w-6 h-6 text-white"
+                        className="w-6 h-6 text-white hidden lg:inline-block"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -235,15 +235,15 @@ export default function Score() {
             className="group relative overflow-hidden rounded-3xl transition-all duration-300 hover:scale-[1.02] disabled:hover:scale-100 disabled:opacity-60"
           >
             <Card className="border-none shadow-2xl bg-gradient-to-br from-red-600 via-red-700 to-red-800 h-full">
-              <CardContent className="p-12 text-center relative z-10">
+              <CardContent className="p-4 lg:p-12 text-center relative z-10">
                 <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-all duration-300" />
 
                 <div className="relative">
                   <div className="mb-6">
-                    <div className="w-24 h-24 mx-auto bg-white/20 rounded-full flex items-center justify-center mb-4 backdrop-blur-sm group-hover:scale-110 transition-transform">
-                      <span className="text-6xl">🏸</span>
+                    <div className="w-18 h-18 lg:w-24 lg:h-24 mx-auto bg-white/20 rounded-full flex items-center justify-center mb-4 backdrop-blur-sm group-hover:scale-110 transition-transform">
+                      <span className="text-4xl lg:text-6xl">🏸</span>
                     </div>
-                    <h3 className="text-4xl font-bold text-white mb-2">
+                    <h3 className="text-2xl lg:text-4xl font-bold text-white mb-2">
                       Tim B
                     </h3>
                     <p className="text-red-200 text-sm font-medium">
@@ -252,7 +252,7 @@ export default function Score() {
                   </div>
 
                   <div className="mb-6">
-                    <div className="text-[140px] leading-none font-black text-white drop-shadow-2xl">
+                    <div className="text-[100px] lg:text-[140px] leading-none font-black text-white drop-shadow-2xl">
                       {scoreB}
                     </div>
                   </div>
@@ -260,7 +260,7 @@ export default function Score() {
                   {!gameOver && (
                     <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/20 rounded-full backdrop-blur-sm">
                       <svg
-                        className="w-6 h-6 text-white"
+                        className="w-6 h-6 text-white hidden lg:inline-block"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >

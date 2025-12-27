@@ -133,7 +133,7 @@ export default function Home() {
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50">
       {/* Header */}
       <div className="bg-white/80 backdrop-blur-sm shadow-lg border-b border-emerald-100/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:py-8 py-4">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <div className="text-center sm:text-left">
               <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 bg-clip-text text-transparent mb-2">
@@ -153,7 +153,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:py-8 py-4 space-y-8">
         {/* Summary Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Total Kas Hari Ini - Only show when date filter is applied */}
@@ -375,7 +375,7 @@ export default function Home() {
                       >
                         <td className="px-6 py-4 whitespace-nowrap">
                           <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 text-emerald-700 font-bold text-sm">
-                            {record.no}
+                            {index + 1 + startIndex}
                           </span>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap">
