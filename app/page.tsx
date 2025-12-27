@@ -147,7 +147,7 @@ export default function Home() {
               href="/skor"
               className="px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl hover:from-emerald-700 hover:to-teal-700 transition-all shadow-md hover:shadow-lg font-semibold"
             >
-              🏸 Skor Pencatatan
+              🏸 Papan skor
             </Link>
           </div>
         </div>
